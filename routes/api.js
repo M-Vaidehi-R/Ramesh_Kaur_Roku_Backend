@@ -14,6 +14,9 @@ router.get('/', (req, res) => {
     res.json({message: 'hit the main ums route'});
 })
 
+
+
+
 // try out login route - set it up and send back a message
 router.post('/login', (req,res) => {
   console.log('hit the login route');
@@ -50,6 +53,9 @@ router.post('/login', (req,res) => {
 
  // res.json({message: 'hit the login route'});
 })
+
+
+
 
 router.get('/users', (req,res) => {
     // try to query the database annd get all of the users
@@ -110,8 +116,49 @@ router.get('/users/:user', (req,res) => {
     //end pool query
 })
 
-// router.get('/users/:user', (req, res) => {
-//     res.json({message: 'hit single users route'});
-// })
+
+
+// try out login route - set it up and send back a message
+router.post('/signup', (req,res) => {
+  console.log('hit the login route');
+  //we are accepting this above info from loginComponent
+  console.log(req.body);
+
+  pool.getConnection(function(err, connection) {   //trying to connect to the database
+    if (err) throw err; // not connected!
+   
+    const { fname, lname, age, email, username, password, avatar } = req.body;
+  const newUser = { fname, lname, age, email, username, password, avatar };
+
+    connection.query(`INSERT INTO users SET ?`, newUser, function (error, results) {   //the result will be either an error or the actual result
+      // When done with the connection, release it.
+      connection.release();
+   
+      // Handle error after the release.
+      if (error) {
+        throw error;
+      }
+    //   else {
+    //     const userId = results.id;
+    //     const age = newUser.age;
+    //     const permissionLevel = age <= 17 ? 3 : 5;
+    //     connection.query(`UPDATE permissions SET permission_level = ${permissionLevel} WHERE user_id = ${userId}`, function (error, results) {
+
+    //       if (error) {
+    //         throw error;
+    //       } else {
+    //         // permissions updated successfully
+    //         console.log("permissions updated");
+    //       }
+        });
+    //   }
+      res.status(201).json({ message: 'User created', user: newUser });
+  });
+
+
+ // res.json({message: 'hit the login route'});
+})
+
+
 
 module.exports = router;
