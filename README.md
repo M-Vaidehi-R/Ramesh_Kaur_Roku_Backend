@@ -1,7 +1,10 @@
-[roku_logo](https://user-images.githubusercontent.com/90973094/232310457-fc8dff29-25e7-451f-9bbb-88022ba8f0d2.png)
 
 
-# Roku Flashback 
+
+![roku_logo](https://user-images.githubusercontent.com/90973094/232310877-8793eae0-d893-4b6d-a783-562f6fbcb25a.png)
+
+
+# Roku Flashback!
 ## AUTHORING ASSIGNMENT
 
 
