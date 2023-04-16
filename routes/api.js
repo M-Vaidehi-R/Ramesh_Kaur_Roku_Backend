@@ -160,5 +160,27 @@ router.post('/signup', (req,res) => {
 })
 
 
+router.post('/comments', (req, res) => {
+  const { username, comment } = req.body;
+
+  pool.getConnection(function(err, connection) {
+    if (err) throw err;
+
+    const newComment = { username, comment };
+
+    connection.query(`INSERT INTO comments SET ?`, newComment, function (error, results) {
+      connection.release();
+
+      if (error) {
+        throw error;
+      }
+
+      res.status(201).json({ message: 'Comment created', comment: newComment });
+    });
+  });
+});
+
+
+
 
 module.exports = router;
